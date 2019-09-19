@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe', 'Segoe UI', 'Arial', 'sans-serif';
+}
+.container {
+  width: 100vw;
+  height: 100vw;
+}
+.header {
+  height: 48px;
+  wight: 100%;
+  background: #2878D7;
+}
+.side-panel {
+  height: 100%;
+  width: 24%;
+  display: inline-block;
+  float: left;
+  background: #F4F4F4;
+}
+.task {
+  height: 100%;
+  width: 50%;
+  display: inline-block;
+  background: #FFFFFF;
+  overflow-y: auto;
+}
+.task-detail {
+  height: 100%;
+  width: 26%;
+  display: inline-block;
+  float: right;
+  background: #F5F5F5;
+}
