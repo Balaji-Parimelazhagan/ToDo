@@ -1,0 +1,56 @@
+<html>
+<head>
+  <title>To Do
+  </title>
+  <meta name = "viewport" content = "width=device-width, initial-scale=1">
+  <link rel = "stylesheet" type = "text/css" href="ToDo.css">
+  <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div id = "container">
+    <div class = "header">
+      <span>To-Do</span>
+    </div>
+    <div class = "working-area">
+      <div class = "side-panel">
+        <div class = "menu-button" tabindex="0" role="button" aria-pressed="true">
+          <div class = "bars"></div>
+          <div class = "bars"></div>
+          <div class = "bars"></div>
+        </div>
+        <div class = "menu">
+          <div class = "menu-icon"><img alt = "sun-icon" src = "images/sun.png"></div>
+          <div class = "menu-name menu-name-display" >My Day</div>
+        </div>
+        <div class = "menu">
+          <div class = "menu-icon"><img alt = "star-icon" src = "images/star.png"></div>
+          <div class = "menu-name menu-name-display" >Important</div>
+        </div>
+        <div class = "menu">
+          <div class = "menu-icon"><img alt = "star-icon" src = "images/calender.png"></div>
+          <div class = "menu-name menu-name-display" >Planned</div>
+        </div>
+        <div class = "menu">
+          <div class = "menu-icon"><img alt = "user-icon" src = "images/user.png"></div>
+          <div class = "menu-name navigation-detail" >Assigned to Me</div>
+        </div>
+        <div class = "menu">
+          <div class = "menu-icon"><img alt = "home-icon" src = "images/home.png"></div>
+          <div class = "menu-name menu-name-display" >Tasks</div>
+        </div>
+        <div class = "task-list-collection">
+        </div>
+        <div class = "side-panel-menu">
+          <label class = "navigation-button new-list-button" for = "newListInput" >+</label>
+          <input type = "text" placeholder = "New list" class = "navigation-detail newListInput" id = "newListInput" />
+        </div>
+      </div>
+      <div class = "task">
+      </div>
+      <div class = "task-detail">
+      </div>
+    </div>
+  </div>
+  <script src = "ToDo.js"></script>
+</body>
+</html>

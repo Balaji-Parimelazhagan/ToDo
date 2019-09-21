@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe', 'Segoe UI', 'Arial', 'sans-serif';
+}
+#container {
+  width: 100vw;
+  height: 100vh;
+}
+#container .header {
+  height: 7.7vh;
+  line-height: 7.7vh;
+  width: 100%;
+  background: #2878D7;
+}
+.header span {
+  font-size : 0.9rem;
+  padding: 0 0 0 0.5%;
+  color: white;
+  font-weight: 500;
+  vertical-align: middle;
+}
+#container .working-area {
+  height: 92.3vh;
+  width: 100%;
+}
+.working-area .side-panel {
+  height: 100%;
+  width:  3.843vw;
+  display: inline-block;
+  float: left;
+  border-right: 1px solid rgba(222,222,222,0.7);
+  position: relative;
+  transition: 0.3s;
+  background: #F4F4F4;
+}
+.menu-button {
+  width: 2.087vh;
+  margin: 3.5vh 0 2.4vh 0.384vw;
+  padding: 1.1vh 0.768vw 1.6vh 0.768vw;
+  background: none;
+  outline: none;
+}
+.bars {
+  margin: 0.5vh 0 0 0;
+  width: 1.3vw;
+  height: 0.16vh;
+  background: #2878D7;
+}
+
+.menu-button:hover {
+  background: #FAFAFA;
+}
+
+.side-panel-menu, .ListOfTask {
+  height: 4.8vh;
+  line-height: 4.8vh;
+} 
+
+.side-panel-menu .navigation-button {
+  width: 3.5vw;
+  height: inherit;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 30px;
+  color:#2878D7;
+  float: left;
+  opacity: 0.6;
+  display: inline-block;
+}
+.navigation-detail {
+  width: 18.216vw;
+  height: inherit;
+  font-size: 30px;
+  color:#2878D7;
+  font-size: 15px;
+  background: none;
+  outline:none;
+  border: none;
+  opacity: 0.6;
+  display: none;
+}
+.menu-icon{
+  width: 3.5vw;
+  height: 6vh;
+  background: #F4F4F4;
+  float: left;
+  background:rgba(233,233,233,0.5);
+  display: inline-block;
+}
+.menu-icon img {
+  margin: 1.6vh 0 0 1.152vw;
+  width: 1.4vw;
+  height: 2.9vh;
+  opacity: 0.5;
+}
+
+.menu-name, .list-name {
+  width: 18.5vw;
+  height: 6vh;
+  font-size: 14px;
+  text-align: left;
+  line-height: 6vh;
+  vertical-align: middle;
+  background: none;
+  outline:none;
+  border: none;
+  opacity: 0.9;
+  color: rgb(52, 55, 61);
+}
+ 
+.list-of-task {
+  
+}
+
+.menu-name-display {
+  display: none;
+}
+
+#list-name-display {
+  display: inline-block;
+}
+
+.fa-list {
+  color:#2878D7;
+  font-size: 15px;
+  display: inline-block;
+  opacity: 0.6;
+}
+.newListInput::placeholder {
+  color: #2878D7;
+  opacity: 1;
+}
+.newListInput:focus {
+  background: #FAFAFA;
+}
+.working-area .task {
+  height: 100%;
+  width: 50%;
+  display: inline-block;
+  background: #FFFFFF;
+  overflow-y: auto;
+}
+.working-area .task-detail {
+  height: 100%;
+  width: 27%;
+  display: inline-block;
+  float: right;
+  background: #F5F5F5;
+}
