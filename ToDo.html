@@ -18,25 +18,25 @@
           <div class = "bars"></div>
           <div class = "bars"></div>
         </div>
-        <div class = "menu">
+        <div class = "side-panel-menu">
           <div class = "menu-icon"><img alt = "sun-icon" src = "images/sun.png"></div>
-          <div class = "menu-name menu-name-display" >My Day</div>
+          <div class = "menu-name menu-name-width" >My Day</div>
         </div>
-        <div class = "menu">
+        <div class = "side-panel-menu">
           <div class = "menu-icon"><img alt = "star-icon" src = "images/star.png"></div>
-          <div class = "menu-name menu-name-display" >Important</div>
+          <div class = "menu-name menu-name-width" >Important</div>
         </div>
-        <div class = "menu">
+        <div class = "side-panel-menu">
           <div class = "menu-icon"><img alt = "star-icon" src = "images/calender.png"></div>
-          <div class = "menu-name menu-name-display" >Planned</div>
+          <div class = "menu-name menu-name-width" >Planned</div>
         </div>
-        <div class = "menu">
+        <div class = "side-panel-menu">
           <div class = "menu-icon"><img alt = "user-icon" src = "images/user.png"></div>
-          <div class = "menu-name navigation-detail" >Assigned to Me</div>
+          <div class = "menu-name menu-name-width" >Assigned to Me</div>
         </div>
-        <div class = "menu">
+        <div class = "side-panel-menu">
           <div class = "menu-icon"><img alt = "home-icon" src = "images/home.png"></div>
-          <div class = "menu-name menu-name-display" >Tasks</div>
+          <div class = "menu-name menu-name-width" >Tasks</div>
         </div>
         <div class = "task-list-collection">
         </div>
@@ -45,9 +45,30 @@
           <input type = "text" placeholder = "New list" class = "navigation-detail newListInput" id = "newListInput" />
         </div>
       </div>
-      <div class = "task">
+      <div class = "list-detail">
+        <div class = "list-header">
+          <span class = "list-of-task-name">Tasks</span>
+          <img alt = "option-icon" src = "images/dot.png">
+          <img alt = "option-icon" src = "images/dot.png">
+          <img alt = "option-icon" src = "images/dot.png">
+        </div>
+        <div class = "task-collection">
+        </div>
+        <div class = "add-new-task">
+          <label class = "add-task-icon" for = "new-task-input-box"><img class = "task-plus-icon" alt = "plus-icon" src = "images/plus.png"></label>
+          <input type = "text" placeholder = "Add task" class = "task-name-input" id = "new-task-input-box"/>
+        </div>
       </div>
       <div class = "task-detail">
+        <div class = "task-header">
+          <div class = "task-status">
+            <label class = "tast-status-checkbox" for = "task-status-icon">
+            <img class = "task-status-icon" alt = "circle-icon" src = "images/circle.png">
+            </label>
+          </div>
+          <div class = "task-name"></div>
+          <div class = "is-favourite"></div>
+        </div>
       </div>
     </div>
   </div>

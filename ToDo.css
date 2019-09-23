@@ -22,17 +22,18 @@
 }
 #container .working-area {
   height: 92.3vh;
-  width: 100%;
+  width: 100vw;
 }
 .working-area .side-panel {
   height: 100%;
-  width:  3.843vw;
+  width:  3.7%;
   display: inline-block;
   float: left;
   border-right: 1px solid rgba(222,222,222,0.7);
   position: relative;
   transition: 0.3s;
   background: #F4F4F4;
+  overflow-y: auto;
 }
 .menu-button {
   width: 2.087vh;
@@ -40,6 +41,7 @@
   padding: 1.1vh 0.768vw 1.6vh 0.768vw;
   background: none;
   outline: none;
+  cursor: pointer;
 }
 .bars {
   margin: 0.5vh 0 0 0;
@@ -52,41 +54,40 @@
   background: #FAFAFA;
 }
 
-.side-panel-menu, .ListOfTask {
+ .ListOfTask {
   height: 4.8vh;
   line-height: 4.8vh;
 } 
-
-.side-panel-menu .navigation-button {
+.navigation-button {
   width: 3.5vw;
-  height: inherit;
+  height: 6vh;
+  line-height: 6vh;
   text-align: center;
   vertical-align: middle;
   font-size: 30px;
   color:#2878D7;
   float: left;
   opacity: 0.6;
-  display: inline-block;
+  cursor: pointer;
 }
 .navigation-detail {
-  width: 18.216vw;
-  height: inherit;
+  width: 18.5vw;
+  height: 6vh;
+  display: block;
   font-size: 30px;
+  margin:0 0 0 -18.5vw;
   color:#2878D7;
   font-size: 15px;
   background: none;
   outline:none;
   border: none;
   opacity: 0.6;
-  display: none;
 }
 .menu-icon{
   width: 3.5vw;
   height: 6vh;
-  background: #F4F4F4;
   float: left;
-  background:rgba(233,233,233,0.5);
-  display: inline-block;
+  cursor: pointer;
 }
 .menu-icon img {
   margin: 1.6vh 0 0 1.152vw;
@@ -107,25 +108,23 @@
   border: none;
   opacity: 0.9;
   color: rgb(52, 55, 61);
+  cursor: pointer;
 }
- 
-.list-of-task {
-  
-}
-
-.menu-name-display {
-  display: none;
+.menu-name-width {
+  margin:0 0 0 -18.5vw;
 }
 
-#list-name-display {
-  display: inline-block;
+.list-name-width {
+  margin:0 0 0 3.5vw;
 }
-
-.fa-list {
-  color:#2878D7;
-  font-size: 15px;
-  display: inline-block;
-  opacity: 0.6;
+.side-panel-menu:hover, .list-name:hover {
+   background: #FAFAFA;
+}
+.list-of-task img {
+  margin: 1.6vh 0 0 1.152vw;
+  width: 3.2vh;
+  height: 1.464vw;
+  float: left;
 }
 .newListInput::placeholder {
   color: #2878D7;
@@ -134,17 +133,109 @@
 .newListInput:focus {
   background: #FAFAFA;
 }
-.working-area .task {
+.working-area .list-detail {
   height: 100%;
-  width: 50%;
+  width: 68%;
   display: inline-block;
   background: #FFFFFF;
   overflow-y: auto;
 }
+.list-header {
+  margin: 2.08vh 0 0 0vw;
+  height: 7.7vh;
+  width: 100%;
+}
+.list-of-task-name {
+  height: 7.7vh;
+  line-height: 7.7vh;
+  vertical-align: middle;
+  font-size: 20px;
+  color:#2878D7;
+  font-weight: 600;
+  margin: 0 1.1vw 0 1.54vw;
+}
+.list-header img {
+  width: 0.64vh;
+  height: 0.3vw;
+  margin: 0 0 0 -0.22vw;
+}
+.add-new-task {
+  height: 7.7vh;
+  width: 94%;
+  display: flex;
+  margin: 0 3% 0 3%;
+  border-bottom: 1px solid rgba(233,233,233,0.9);
+}
+.add-task-icon {
+  display: inline-block;
+  float: left;
+  cursor: pointer;
+  padding: 15px 8px 0 0px;
+}
+.add-task-icon img{
+    width: 30;
+    height: 30;
+    margin: 0 0 0 0;
+}
+.task-name-input {
+  display: inline-block;
+  float: left;
+  width: 100%;
+  padding: 5px 0 0 8px;
+  font-size: 15px;
+  outline: none;
+  border: none;
+}
+.task-name-input::placeholder {
+  color: #2878D7;
+}
+.task-name-input:focus::placeholder {
+  color: black;
+  opacity: 0.6;
+}
+.task {
+  height: 7.7vh;
+  width: 94%;
+  display: flex;
+  margin: 0 3% 0 3%;
+  border-bottom: 1px solid rgba(233,233,233,0.9);
+}
+.task img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  padding: 15px 8px 0 0px;
+}
+.task-name {
+  height: 7.7vh;
+  display: inline-block;
+  float: left;
+  vertical-align: middle;
+  line-height: 7.7vh;
+  padding: 5px 0 0 8px;
+  font-size: 15px;
+}
 .working-area .task-detail {
-  height: 100%;
-  width: 27%;
+  height: 95%;
+  width: 25%;
+  padding:1%;
   display: inline-block;
   float: right;
   background: #F5F5F5;
+  overflow-y: auto;
+}
+.task-header {
+  width: 94%;
+  background: white;
+  padding: 3%;
+  height: 14vh;
+  border: 1px solid rgba(233,233,233,1);
+}
+.tast-status {
+  width: 25px;
+  height: 25px;
+}
+.task-status img {
+  width: 25px;
+  height: 25px;
 }
