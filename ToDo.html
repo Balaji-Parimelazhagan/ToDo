@@ -18,27 +18,29 @@
           <div class = "bars"></div>
           <div class = "bars"></div>
         </div>
-        <div class = "side-panel-menu">
-          <div class = "menu-icon"><img alt = "sun-icon" src = "images/sun.png"></div>
-          <div class = "menu-name menu-name-width" >My Day</div>
-        </div>
-        <div class = "side-panel-menu">
-          <div class = "menu-icon"><img alt = "star-icon" src = "images/star.png"></div>
-          <div class = "menu-name menu-name-width" >Important</div>
-        </div>
-        <div class = "side-panel-menu">
-          <div class = "menu-icon"><img alt = "star-icon" src = "images/calender.png"></div>
-          <div class = "menu-name menu-name-width" >Planned</div>
-        </div>
-        <div class = "side-panel-menu">
-          <div class = "menu-icon"><img alt = "user-icon" src = "images/user.png"></div>
-          <div class = "menu-name menu-name-width" >Assigned to Me</div>
-        </div>
-        <div class = "side-panel-menu">
-          <div class = "menu-icon"><img alt = "home-icon" src = "images/home.png"></div>
-          <div class = "menu-name menu-name-width" >Tasks</div>
-        </div>
-        <div class = "task-list-collection">
+        <div class = "scrollable-area">
+          <div class = "side-panel-menu">
+            <div class = "menu-icon"><img alt = "sun-icon" src = "images/sun.png"></div>
+            <div class = "menu-name menu-name-width" >My Day</div>
+          </div>
+          <div class = "side-panel-menu">
+            <div class = "menu-icon"><img alt = "star-icon" src = "images/star.png"></div>
+            <div class = "menu-name menu-name-width" >Important</div>
+          </div>
+          <div class = "side-panel-menu">
+            <div class = "menu-icon"><img alt = "star-icon" src = "images/calender.png"></div>
+            <div class = "menu-name menu-name-width" >Planned</div>
+          </div>
+          <div class = "side-panel-menu">
+            <div class = "menu-icon"><img alt = "user-icon" src = "images/user.png"></div>
+            <div class = "menu-name menu-name-width" >Assigned to Me</div>
+          </div>
+          <div class = "side-panel-menu">
+            <div class = "menu-icon"><img alt = "home-icon" src = "images/home.png"></div>
+            <div class = "menu-name menu-name-width" >Tasks</div>
+          </div>
+          <div class = "task-list-collection">
+          </div>
         </div>
         <div class = "side-panel-menu">
           <label class = "navigation-button new-list-button" for = "newListInput" >+</label>
@@ -61,13 +63,23 @@
       </div>
       <div class = "task-detail">
         <div class = "task-header">
-          <div class = "task-status">
-            <label class = "tast-status-checkbox" for = "task-status-icon">
-            <img class = "task-status-icon" alt = "circle-icon" src = "images/circle.png">
-            </label>
+         <div class = "task-title">
+            <div class = "task-status">
+              <label class = "tast-status-checkbox" for = "task-status-icon">
+              <img class = "task-status-icon" alt = "circle-icon" src = "images/circle.png">
+              </label>
+            </div>
+            <div class = "task-name-detail"></div>
+            <div class = "is-favourite">
+              <img class = "task-status-icon" alt = "circle-icon" src = "images/star.png">
+            </div>
           </div>
-          <div class = "task-name"></div>
-          <div class = "is-favourite"></div>
+          <div class="steps">
+          </div>
+          <div class = "add-new-step">
+            <label class = "add-step-icon" for = "new-step-input-box"><img class = "step-plus-icon" alt = "plus-icon" src = "images/plus.png"></label>
+            <input type = "text" placeholder = "Add step" class = "step-name-input" id = "new-step-input-box"/>
+          </div>
         </div>
       </div>
     </div>
