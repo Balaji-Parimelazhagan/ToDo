@@ -80,8 +80,20 @@
             <input type = "text" placeholder = "Add step" class = "step-name-input" id = "new-step-input-box"/>
           </div>
         </div>
+        <div class = "task-footer">
+        <div class = "task-detail-delete"></div>
+        <div class = "task-detail-panel-close">Close</div>
+        </div>
       </div>
     </div>
+    <div class = "modal">
+    <div class = "modal-content">
+      <span class = "warning-message">"<span class = "criteria-name"></span>" will be permanently deleted</span><br>
+      <span class = "info">You won't be able to undo this action</span><br>
+      <button class = "delete-button" onclick=""></button>
+      <button class = "cancel-button" onclick="closeDeletePopup()">Cancel</button>
+    </div>
+</div>
   </div>
   <script src = "ToDo.js"></script>
 </body>

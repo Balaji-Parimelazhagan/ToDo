@@ -1,6 +1,7 @@
 var collectionOfList = [];
 var activeListId;
 var activeTaskId;
+var activeStepId;
 var activeTaskCheckboxId;
 
 document.querySelector(".task-name-input").addEventListener("focus", function(event){
@@ -31,6 +32,8 @@ document.querySelector(".new-list-button").addEventListener("click", function(){
 	navigateSidePanel("open");
 });
 
+var isTaskDetailPanelOpen = false;
+var isSidePanelOpen = false;
 /*
  * Opens the side panel in a sliding manner, whenever menu bar icon or add task
  * is clicked.
@@ -43,15 +46,25 @@ function navigateSidePanel(action){
 	var listNames = document.querySelectorAll(".list-name");
 	var menuNames = document.querySelectorAll(".menu-name");
 	if (action==="open") {
+        isSidePanelOpen = true;
 		sidePanel.style.width = "22%";
-		listDetail.style.width = "50%";
+        if (false == isTaskDetailPanelOpen) {
+		    listDetail.style.width = "77%";
+        } else {
+            listDetail.style.width = "50%";
+        }
 		showSidePanelElement(navigationDetail);
 		showSidePanelElement(listNames);
 		showSidePanelElement(menuNames);
 		menuButton.setAttribute("aria-pressed", "false");
 	} else {
+        isSidePanelOpen = false;
 		sidePanel.style.width = "3.7%";
-		listDetail.style.width = "68.3%";
+        if (false == isTaskDetailPanelOpen) {
+		    listDetail.style.width = "93.3%";
+        } else {
+		    listDetail.style.width = "68.3%";
+        }
 		hideSidePanelElement(navigationDetail);
 		hideSidePanelElement(listNames);
 		hideSidePanelElement(menuNames);
@@ -83,6 +96,12 @@ function showSidePanelElement(element) {
  * Hides the given content from the screen by changing the left margin.
  */
 function hideTaskDetailPanel() {
+    isTaskDetailPanelOpen = false;
+    if (false == isSidePanelOpen) {
+		    document.querySelector(".list-detail").style.width = "93.3%";
+        } else {
+		    document.querySelector(".list-detail").style.width = "77%";
+        }
 	document.querySelector(".task-detail").style.width = "0%";
 	document.querySelector(".task-detail").style.padding = "0%";
 }
@@ -91,6 +110,12 @@ function hideTaskDetailPanel() {
  * Displays the given content to the screen by changing the left margin.
  */
 function showTaskDetailPanel() {
+    isTaskDetailPanelOpen = true;
+    if (false == isSidePanelOpen) {
+		    document.querySelector(".list-detail").style.width = "68.3%";
+        } else {
+		    document.querySelector(".list-detail").style.width = "50%";
+        }
 	document.querySelector(".task-detail").style.width = "25%";
 	document.querySelector(".task-detail").style.padding = "1%";
 }
@@ -110,32 +135,35 @@ document.querySelector("#newListInput").addEventListener("keydown", function (e)
  * corresponding task.
  */
 function addNewList(name) {
+    var list = createList(name);
 	var taskListCollection = document.querySelector(".task-list-collection");
-	var id = Date.now();
-	var newList = createDivWithClassAndId(newList, "list-of-task", id);
+	var newList = createDivWithClassAndId(newList, "list-of-task", list.id);
 	var listIcon = document.createElement("img");
-	listIcon.setAttribute("id" , id);
+	listIcon.setAttribute("id" , list.id);
 	listIcon.src = "images/list.png";
 	newList.appendChild(listIcon);
-	var listNameDiv = createDivWithClassAndId(listNameDiv, "list-name list-name-width", id);
-	var listName = document.createTextNode(name);
+	var listNameDiv = createDivWithClassAndId(listNameDiv, "list-name list-name-width", list.id);
+	var listName = document.createTextNode(list.name + list.nameSuffix);
 	listNameDiv.appendChild(listName);
 	newList.appendChild(listNameDiv);
 	taskListCollection.appendChild(newList);
 	document.querySelector("#newListInput").value = "";
-    createList(name, id);
+	document.querySelector(".list-of-task-name").innerHTML = "" + name + list.nameSuffix + "";
+	document.querySelector(".task-collection").innerHTML = "";
+    addEventListenerForList(list.id);
 }
 
-function createList(listName, id) {
+function createList(listName) {
+    var nameSuffix = validateName(listName, "list");
     var newlist = new Object();
+	var id = Date.now();
     newlist.name = "" + listName + "";
+    newlist.nameSuffix = nameSuffix;
     newlist.id = id;
     newlist.tasks = [];
     activeListId = newlist.id;
-	document.querySelector(".list-of-task-name").innerHTML = "" + newlist.name + "";
-	document.querySelector(".task-collection").innerHTML = "";
     collectionOfList.push(newlist);
-    addEventListenerForList(id);
+    return newlist;
 }
 
 function addEventListenerForList(id) {
@@ -145,13 +173,14 @@ function addEventListenerForList(id) {
     			return listToBeChecked.id == targetId;
 		});
 		hideTaskDetailPanel();
-		document.querySelector(".list-of-task-name").innerHTML = "" + activeList.name + "";
+		document.querySelector(".list-of-task-name").innerHTML = "" + activeList.name + activeList.nameSuffix + "";
 		document.querySelector(".task-collection").innerHTML ="";
 		activeListId = activeList.id;
 		activeList.tasks.forEach(function(task) {
-			displayExistingTask(task);
+			if (true == task.status) {
+				displayExistingTask(task);
+			}
 	    });
-		document.getElementById(id).style.background= "rgba(233, 233, 233, 0.5)";
     });
 }
 
@@ -163,7 +192,7 @@ function displayExistingTask(task){
 	var taskStatusCheckbox;
 	createLabelAndCheckbox(taskStatusCheckbox, taskStatusLabel, newTask, checkBoxId, task.id);
 	var taskNameDiv = createDivWithClassAndId(newTask, "task-name", task.id);
-	var taskName = document.createTextNode(task.name);
+	var taskName = document.createTextNode(task.name + task.nameSuffix);
 	taskNameDiv.appendChild(taskName);
 	newTask.appendChild(taskNameDiv);
 	taskCollection.appendChild(newTask);
@@ -186,55 +215,59 @@ document.querySelector("#new-task-input-box").addEventListener("keydown", functi
  * corresponding task.
  */
 function addNewTask(name) {
+	var task = createTask(name);
 	var taskCollection = document.querySelector(".task-collection");
-	var id = Date.now();
 	var newTask = createDivWithClassAndId(newTask, "task", "");
 	var taskStatusLabel;
 	var taskStatusCheckbox;
-	var checkBoxId = id + name;
-	createLabelAndCheckbox(taskStatusCheckbox, taskStatusLabel, newTask, checkBoxId, id);
-	var taskNameDiv = createDivWithClassAndId(taskNameDiv, "task-name", id);
-	var taskName = document.createTextNode(name);
+	var checkBoxId = task.id + task.name;
+	createLabelAndCheckbox(taskStatusCheckbox, taskStatusLabel, newTask, checkBoxId, task.id);
+	var taskNameDiv = createDivWithClassAndId(taskNameDiv, "task-name", task.id);
+	var taskName = document.createTextNode(task.name + task.nameSuffix);
 	taskNameDiv.appendChild(taskName);
 	newTask.appendChild(taskNameDiv);
 	taskCollection.appendChild(newTask);
 	document.querySelector("#new-task-input-box").value = "";
-	createTask(name, id, checkBoxId);
+	activeTaskCheckboxId = checkBoxId
+	addEventListenerForTask(task.id);
+	addEventListenerForTaskStatusCheckbox(checkBoxId);
+    document.querySelector(".steps").innerHTML ="";
+	document.querySelector(".task-name-detail").innerHTML = "" + task.name + task.nameSuffix + "";
 }
 
-function createTask(taskName, id, checkBoxId) {
+function createTask(taskName) {
+    var nameSuffix = validateName(taskName, "task");
+	var id = Date.now();
     var newtask = new Object();
 	newtask.name = "" + taskName + "";
+    newtask.nameSuffix = nameSuffix;
 	newtask.id =  id;
 	newtask.isFinished =  false;
+	newtask.status =  true;
 	newtask.steps = [];
-	var activeList = collectionOfList.find(function(list) {
-		return list.id == activeListId;
-    });
+	var activeList = collectionOfList.find(list => list.id == activeListId);
     activeList.tasks.push(newtask);
 	activeTaskId = newtask.id;
-	activeTaskCheckboxId = checkBoxId;
-	var activeTask = retrieveTask(newtask.id);
-	addEventListenerForTask(newtask.id);
-	addEventListenerForTaskStatusCheckbox(checkBoxId);
-	document.querySelector(".task-name-detail").innerHTML = "" + activeTask.name + "";
+    return newtask;
 }
 
 function addEventListenerForTask(id) {
 	document.getElementById(id).addEventListener("click", function(event){
 		var targetId = event.target.id;
+		console.log(targetId);
 		var activeTask = retrieveTask(targetId);
 		activeTaskId = activeTask.id;
 		activeTaskCheckboxId = activeTask.id + activeTask.name;
 		loadTaskCheckBox(activeTask, targetId, activeTaskCheckboxId);
 		showTaskDetailPanel();
-		document.querySelector(".task-name-detail").innerHTML = "" + activeTask.name + "";
+		document.querySelector(".task-name-detail").innerHTML = "" + activeTask.name + activeTask.nameSuffix + "";
 		loadTaskName(activeTask, targetId);
 		document.querySelector(".steps").innerHTML ="";
 		activeTask.steps.forEach(function(step) {
-			displayExistingStep(step);
+			if (true == step.status) {
+                displayExistingStep(step);
+            }
 	    });
-		document.getElementById(id).style.background= "rgba(233, 233, 233, 0.5)";
     });
 }
 
@@ -243,6 +276,14 @@ function addEventListenerForTaskStatusCheckbox(checkBoxId) {
 		var targetId = event.target.name;
 		var activeTask = retrieveTask(targetId);
 		showTaskDetailPanel();
+		document.querySelector(".task-name-detail").innerHTML = "" + activeTask.name + activeTask.nameSuffix + "";
+		loadTaskName(activeTask, targetId);
+		document.querySelector(".steps").innerHTML ="";
+		activeTask.steps.forEach(function(step) {
+			if (true == step.status) {
+                displayExistingStep(step);
+            }
+	    });
 		var checkBox = document.getElementById(checkBoxId);
 		if(true == checkBox.checked) {
 			activeTask.isFinished = true;
@@ -257,11 +298,34 @@ function addEventListenerForTaskStatusCheckbox(checkBoxId) {
 		activeTaskId = activeTask.id;
 		activeTaskCheckboxId = checkBoxId;
 		activeTask.steps.forEach(function(step) {
-			displayExistingStep(step);
+            if (true == step.status) {
+				displayExistingStep(step);
+            }
 	    });
-		document.getElementById(id).style.background= "rgba(233, 233, 233, 0.5)";
     });
 }
+
+	document.querySelector(".task-detail-delete").addEventListener("click", function(event){
+        var activeTask = retrieveTask(activeTaskId);
+        var criteriaNameSpan =  document.querySelector(".criteria-name");
+        criteriaNameSpan.innerHTML = "" + activeTask.name + "";
+        document.querySelector(".delete-button").innerHTML = "Delete task";
+        document.querySelector(".modal").style.display = "block";
+        document.querySelector(".delete-button").onclick = function () {
+            console.log("Delete method reached");
+            activeTask.status = false;
+            closeDeletePopup();
+            hideTaskDetailPanel();
+            document.querySelector(".task-collection").innerHTML = "";
+	        var activeList = collectionOfList.find(list => list.id == activeListId);
+            activeList.tasks.forEach(function(task) {
+                if (true == task.status) {
+                	displayExistingTask(task);
+                }
+            });
+        };
+    });
+
 
 document.getElementById("task-status-detail-checkbox").addEventListener("click", function(event){
 
@@ -287,11 +351,15 @@ function displayExistingStep(step) {
 	var stepStatusCheckbox;
 	createLabelAndCheckbox(stepStatusCheckbox, stepkStatusLabel, newStep, checkBoxId, step.id);
 	var stepNameDiv = createDivWithClassAndId(stepNameDiv, "step-name", step.id);
-	var stepName = document.createTextNode(step.name);
+	var stepName = document.createTextNode(step.name + step.nameSuffix);
 	stepNameDiv.appendChild(stepName);
 	newStep.appendChild(stepNameDiv);
+    var stepDeleteDiv = createDivWithClassAndId(stepDeleteDiv, "step-delete", step.id);
+	newStep.appendChild(stepDeleteDiv);
 	steps.appendChild(newStep);
 	loadStepCheckBox(step, step.id, checkBoxId);
+    addEventListenerForStepStatusCheckbox(checkBoxId);
+    addEventListenerForDeleteStep(step.id);
 }
 
 document.querySelector("#new-step-input-box").addEventListener("keydown", function (e) {
@@ -308,30 +376,37 @@ document.querySelector("#new-step-input-box").addEventListener("keydown", functi
  * corresponding task.
  */
 function addNewStep(name) {
+	var step = createStep(name);
 	var steps = document.querySelector(".steps");
-	var id = Date.now();
-	var newStep = createDivWithClassAndId(newStep, "step", id);
-	var checkBoxId = id + name;
+	var newStep = createDivWithClassAndId(newStep, "step", step.id);
+	var checkBoxId = step.id + step.name;
 	var stepStatusLabel;
 	var stepStatusCheckbox;
-	createLabelAndCheckbox(stepStatusCheckbox, stepStatusLabel, newStep, checkBoxId, id);
-	var stepNameDiv = createDivWithClassAndId(stepNameDiv, "step-name", id)
-	var stepName = document.createTextNode(name);
+	createLabelAndCheckbox(stepStatusCheckbox, stepStatusLabel, newStep, checkBoxId, step.id);
+	var stepNameDiv = createDivWithClassAndId(stepNameDiv, "step-name", step.id)
+	var stepName = document.createTextNode(step.name + step.nameSuffix);
 	stepNameDiv.appendChild(stepName);
 	newStep.appendChild(stepNameDiv);
+    var stepDeleteDiv = createDivWithClassAndId(stepDeleteDiv, "step-delete", step.id);
+	newStep.appendChild(stepDeleteDiv);
 	steps.appendChild(newStep);
 	document.querySelector("#new-step-input-box").value = "";
-	createStep(name, id);
 	addEventListenerForStepStatusCheckbox(checkBoxId)
+	addEventListenerForDeleteStep(step.id)
 }
 
-function createStep(stepName, id) {
+function createStep(stepName) {
+    var nameSuffix = validateName(stepName, "step");
     var step = new Object();
+	var id = Date.now();
 	step.id = id;
 	step.name = "" + stepName + "";
+    step.status = true;
+    step.nameSuffix = nameSuffix;
 	step.isFinished = false;
 	var activeTask = retrieveTask(activeTaskId);
     activeTask.steps.push(step);
+    return step;
 }
 
 function addEventListenerForStepStatusCheckbox(checkBoxId) {
@@ -339,8 +414,6 @@ function addEventListenerForStepStatusCheckbox(checkBoxId) {
 		var targetId = event.target.name;
 		var activeTask = retrieveTask(activeTaskId);
 		var activeStep = activeTask.steps.find(step => step.id == targetId);
-		console.log("ative task " + activeTaskId);
-		console.log("ative finished " + activeStep.isFinished);
 		var checkBox = document.getElementById(checkBoxId);
 		if(true == checkBox.checked) {
 			activeStep.isFinished = true;
@@ -349,8 +422,41 @@ function addEventListenerForStepStatusCheckbox(checkBoxId) {
 			activeStep.isFinished = false;
 			document.getElementById(targetId).style.textDecoration = "none";
 		}
-		document.getElementById(id).style.background= "rgba(233, 233, 233, 0.5)";
     });
+}
+
+function addEventListenerForDeleteStep(id) {
+	document.getElementById(id).addEventListener("click", function(event){
+        activeStepId = event.target.id;
+        var activeTask = retrieveTask(activeTaskId);
+        var activeStep = activeTask.steps.find(step => step.id == activeStepId);
+        var criteriaNameSpan =  document.querySelector(".criteria-name");
+        criteriaNameSpan.innerHTML = "" + activeStep.name + "";
+        document.querySelector(".delete-button").innerHTML = "Delete step";
+        document.querySelector(".modal").style.display = "block";
+        document.querySelector(".delete-button").onclick = function () {
+            var activeTask = retrieveTask(activeTaskId);
+            var activeStep = activeTask.steps.find(step => step.id == activeStepId);
+            activeStep.status = false;
+            closeDeletePopup();
+            document.querySelector(".steps").innerHTML = "";
+            activeTask.steps.forEach(function(step) {
+                if (true == step.status) {
+                	displayExistingStep(step);
+                }
+            });
+        };
+    });
+}
+
+function closeDeletePopup() {
+    document.querySelector(".modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
 
 function createDivWithClassAndId(div, classname, id) {
@@ -359,11 +465,13 @@ function createDivWithClassAndId(div, classname, id) {
 	div.setAttribute("id" , id);
 	return div;
 }
+
 function retrieveTask(taskId) {
 	var activeList = collectionOfList.find(list => list.id == activeListId);
 	var activeTask = activeList.tasks.find(task => task.id == taskId);
 	return activeTask;
 }
+
 function loadTaskCheckBox(activeTask, targetId, taskCheckBox) {
 	if(true == activeTask.isFinished) {
 		document.getElementById(taskCheckBox).checked = true;
@@ -392,6 +500,24 @@ function loadTaskName(activeTask, targetId) {
 		document.getElementById(targetId).style.textDecoration = "none";
 		document.querySelector(".task-name-detail").style.textDecoration = "none";
 	}
+}
+function validateName(rawName, criteria) {
+    var duplicateNames = [];
+    if ("list" == criteria) {
+        duplicateNames = collectionOfList.filter(list => list.name == rawName);
+    } else if ("task" == criteria) {
+        var activeList = collectionOfList.find(list => list.id == activeListId);
+        duplicateNames = activeList.tasks.filter(task => task.name == rawName);
+    } else if ("step" == criteria) {
+        var activeTask = retrieveTask(activeTaskId);
+        duplicateNames = activeTask.steps.filter(step => step.name == rawName);
+    }
+    var duplicatesCount = duplicateNames.length;
+    if (0 != duplicatesCount) {
+        return " ("+duplicatesCount+")";
+    } else {
+        return "";
+    }
 }
 function createLabelAndCheckbox(checkbox, label, div, id, name) {
 	var statusDiv = document.createElement("div");
