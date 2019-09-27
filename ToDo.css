@@ -85,17 +85,37 @@
   border: none;
   opacity: 0.6;
 }
-.menu-icon{
+.icon-div{
   width: 3.5vw;
   height: 6vh;
   float: left;
   cursor: pointer;
 }
-.menu-icon img {
+.icon {
   margin: 1.6vh 0 0 1.152vw;
   width: 1.4vw;
   height: 2.9vh;
   opacity: 0.5;
+}
+.sun-icon {
+  background-image: url("images/sun.png");
+  background-size: cover;
+}
+.star-icon {
+  background-image: url("images/star.png");
+  background-size: cover;
+}
+.calender-icon {
+  background-image: url("images/calender.png");
+  background-size: cover;
+}
+.user-icon {
+  background-image: url("images/user.png");
+  background-size: cover;
+}
+.home-icon {
+  background-image: url("images/home.png");
+  background-size: cover;
 }
 
 .menu-name, .list-name {
@@ -137,11 +157,23 @@
 }
 .working-area .list-detail {
   height: 100%;
-  width: 93.3%;
   display: inline-block;
   background: #FFFFFF;
   overflow-y: auto;
 }
+.list-when-task-side-closed {
+  width: 93.3%;
+}
+.sun-icon {
+ width: 50%;
+}
+.list-when-side-opened {
+ width: 77%;
+}
+.list-when-task-opened {
+ width: 68.3%;
+}
+
 .list-header {
   margin: 2.08vh 0 0 0vw;
   height: 7.7vh;
@@ -156,10 +188,13 @@
   font-weight: 600;
   margin: 0 1.1vw 0 1.54vw;
 }
-.list-header img {
+.list-header .option-icon {
   width: 0.64vh;
   height: 0.3vw;
   margin: 0 0 0 -0.22vw;
+  background-image: url("images/dot.png");
+  background-size: cover;
+  display: inline-block;
 }
 .add-new-task {
   height: 7.7vh;
@@ -171,12 +206,19 @@
 .add-task-icon {
   float: left;
   cursor: pointer;
-  padding: 2.2vh 0.6vw 0 0;
+  background-size: cover;
 }
-.add-task-icon img{
-    width: 30;
-    height: 30;
-    margin: 0 0 0 0;
+.add-task-plus-icon{
+  background-image: url("images/plus.png");
+    width: 30px;
+    height: 30px;
+    margin: 2vh 0.6vw 0 0;
+}
+.add-task-circle-icon{
+  background-image: url("images/circle.png");
+    width: 22px;
+    height: 22px;
+    margin: 2.5vh 0.45vw 0 0.3vw;
 }
 .task-name-input {
   float: left;
@@ -301,22 +343,22 @@
   opacity: 1;
 }
 .task-name-detail {
-    width: 100%;
-    height: 3.7vh;
-    padding: 0 0 0 1.1vw;
-    vertical-align: middle;
-    line-height: 3.7vh;
-    font-size: 15px;
-    text-decoration: none;
+  width: 78%;
+  height: 3.7vh;
+  padding: 0 0 0 2%;
+  font-weight: 550;
+  vertical-align: middle;
+  line-height: 3.7vh;
+  font-size: 15px;
+  color: rgba(66,66,66,0.7);
+  text-decoration: none;
 }
 .is-favourite {
-  width: 1.9vw;
-  height: 3.7vh;
-}
-.is-favourite img {
-  width: 1.5vw;
-  height: 3vh;
-  opacity: 0.7;
+  width: 1.4vw;
+  height: 2.9vh;
+  opacity: 0.5;
+  background-image: url("images/star.png");
+  background-size: cover;
 }
 .step {
   height: 7.7vh;
@@ -364,12 +406,11 @@
 .add-step-icon {
   float: left;
   cursor: pointer;
-  padding: 2vh 0.6vw 0 0;
-}
-.add-step-icon img{
-    width: 1.8vw;
-    height: 3.7vh;
-    margin: 0 0 0 -0.5vw;
+  width: 1.8vw;
+  height: 3.7vh;
+  margin: 2.2vh 0.5vw 0 -0.2vw;
+  background-image: url("images/plus.png");
+  background-size: cover;
 }
 .step-name-input {
   float: left;

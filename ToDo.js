@@ -1,24 +1,25 @@
+'use strict';
+
 var collectionOfList = [];
 var activeListId;
 var activeTaskId;
 var activeStepId;
 var activeTaskCheckboxId;
 
-document.querySelector(".task-name-input").addEventListener("focus", function(event){
-    document.querySelector(".task-plus-icon").src = "images/circle.png";
-    document.querySelector(".task-plus-icon").style.height = "22px";
-    document.querySelector(".task-plus-icon").style.width = "22px";
-    document.querySelector(".task-plus-icon").style.margin = "2px -2px 0 4px";
-    });
+document.querySelector(".task-name-input").addEventListener("focus", toggleTaskInputClass);
+document.querySelector(".task-name-input").addEventListener("focusout", toggleTaskInputClass);
+document.querySelector(".menu-button").addEventListener("click", navigateActionOfMenuButton);
+document.querySelector(".task-detail-panel-close").addEventListener("click", hideTaskDetailPanel);
+document.querySelector(".new-list-button").addEventListener("click", navigateActionOfMenuButton);
+document.querySelector("#newListInput").addEventListener("keydown", addNewListWhenEnterIsPressed);
+document.querySelector("#new-task-input-box").addEventListener("keydown", addNewTaskWhenEnterIsPressed);
 
-document.querySelector(".task-name-input").addEventListener("focusout", function(event){
-    document.querySelector(".task-plus-icon").src = "images/plus.png";
-    document.querySelector(".task-plus-icon").style.height = "30px";
-    document.querySelector(".task-plus-icon").style.width = "30px";
-    document.querySelector(".task-plus-icon").style.margin = "0 0 0 0";
-    });
+function toggleTaskInputClass() {
+    document.querySelector(".add-task-icon").classList.toggle("add-task-plus-icon");
+    document.querySelector(".add-task-icon").classList.toggle("add-task-circle-icon");
+}
 
-document.querySelector(".menu-button").addEventListener("click", function(){
+function navigateActionOfMenuButton() {
     var menuButton = document.querySelector(".menu-button");
     if (menuButton.getAttribute("aria-pressed")==="true") {
         navigateSidePanel("open");
@@ -26,16 +27,36 @@ document.querySelector(".menu-button").addEventListener("click", function(){
         navigateSidePanel("close");
         menuButton.style.background= "none";
     }
-});
+}
+/*
+document.querySelector("#newListInput").addEventListener("keydown", function() {
+    if (event.keyCode === 13) {
+        var inputText = document.querySelector("#newListInput");
+        if ("" != inputText.value) {
+            hideTaskDetailPanel();
+            createList(inputText.value);
+        }
+    }
 
+});*/
 
-document.querySelector(".task-detail-panel-close").addEventListener("click", function(){
-    hideTaskDetailPanel();
-});
-
-document.querySelector(".new-list-button").addEventListener("click", function(){
-    navigateSidePanel("open");
-});
+function addNewTaskWhenEnterIsPressed() {
+    if (e.keyCode === 13) {
+        var inputText = document.querySelector("#new-task-input-box");
+        if ("" != inputText.value) {
+            addNewTask(inputText.value);
+        }
+    }
+}
+function addNewListWhenEnterIsPressed() {
+    if (event.keyCode === 13) {
+        var inputText = document.querySelector("#newListInput");
+        if ("" != inputText.value) {
+            hideTaskDetailPanel();
+            createList(inputText.value);
+        }
+    }
+}
 
 var isTaskDetailPanelOpen = false;
 var isSidePanelOpen = false;
@@ -81,8 +102,7 @@ function navigateSidePanel(action){
  * Hides the given content from the screen by changing the left margin.
  */
 function hideSidePanelElement(element) {
-    var loopCount;
-    for (loopCount = 0; loopCount < element.length; loopCount++) {
+    for (let loopCount = 0; loopCount < element.length; loopCount++) {
         element[loopCount].style.margin = "0 0 0 -18.5vw";
     }
 }
@@ -91,8 +111,7 @@ function hideSidePanelElement(element) {
  * Displays the given content to the screen by changing the left margin.
  */
 function showSidePanelElement(element) {
-    var loopCount;
-    for (loopCount = 0; loopCount < element.length; loopCount++) {
+    for (let loopCount = 0; loopCount < element.length; loopCount++) {
         element[loopCount].style.margin = "0 0 0 3.5vw";
     }
 }
@@ -103,9 +122,13 @@ function showSidePanelElement(element) {
 function hideTaskDetailPanel() {
     isTaskDetailPanelOpen = false;
     if (false == isSidePanelOpen) {
-            document.querySelector(".list-detail").style.width = "93.3%";
+            document.querySelector(".list-detail").classList.remove("list-when-task-side-opened",
+            "list-when-side-opened", "list-when-task-opened");
+            document.querySelector(".list-detail").classList.add("list-when-task-side-closed");
         } else {
-            document.querySelector(".list-detail").style.width = "77%";
+            document.querySelector(".list-detail").classList.remove("list-when-task-side-opened",
+            "list-when-task-side-closed", "list-when-task-opened");
+            document.querySelector(".list-detail").classList.add("list-when-side-opened");
         }
     document.querySelector(".task-detail").style.width = "0%";
     document.querySelector(".task-detail").style.padding = "0%";
@@ -117,23 +140,17 @@ function hideTaskDetailPanel() {
 function showTaskDetailPanel() {
     isTaskDetailPanelOpen = true;
     if (false == isSidePanelOpen) {
-            document.querySelector(".list-detail").style.width = "68.3%";
+        document.querySelector(".list-detail").classList.remove("list-when-task-side-opened",
+        "list-when-task-side-closed", "list-when-side-opened");
+        document.querySelector(".list-detail").classList.add("list-when-task-opened");
         } else {
-            document.querySelector(".list-detail").style.width = "50%";
+            document.querySelector(".list-detail").classList.remove("list-when-task-opened",
+            "list-when-task-side-closed", "list-when-side-opened");
+            document.querySelector(".list-detail").classList.add("list-when-task-side-opened");
         }
     document.querySelector(".task-detail").style.width = "25%";
     document.querySelector(".task-detail").style.padding = "1%";
 }
-
-document.querySelector("#newListInput").addEventListener("keydown", function (e) {
-    if (e.keyCode === 13) {
-        var inputText = document.querySelector("#newListInput");
-        if ("" != inputText.value) {
-            hideTaskDetailPanel();
-            addNewList(inputText.value);
-        }
-    }
-});
 
 /*
  * Adds a new list that can contain several tasks and steps for the
@@ -162,9 +179,12 @@ function displayExistingList(list) {
     taskListCollection.appendChild(newList);
     addEventListenerForList(list.id);
 }
-
-function addNewList(name) {
-    var list = createList(name);
+/**
+ * 
+ * @param {*} name 
+ */
+function createList(name) {
+    var list = createListObject(name);
     var taskListCollection = document.querySelector(".task-list-collection");
     var newList = createDivWithClassAndId(newList, "list-of-task", list.id);
     var listIcon = document.createElement("img");
@@ -181,8 +201,11 @@ function addNewList(name) {
     document.querySelector(".task-collection").innerHTML = "";
     addEventListenerForList(list.id);
 }
-
-function createList(listName) {
+/**
+ * 
+ * @param {*} listName 
+ */
+function createListObject(listName) {
     var nameSuffix = validateName(listName, "list");
     var newlist = new Object();
     var id = Date.now();
@@ -243,15 +266,6 @@ function displayExistingTask(task){
     addEventListenerForTaskStatusCheckbox(checkBoxId);
     loadTaskCheckBox(task, task.id, checkBoxId);
 }
-
-document.querySelector("#new-task-input-box").addEventListener("keydown", function (e) {
-    if (e.keyCode === 13) {
-        var inputText = document.querySelector("#new-task-input-box");
-        if ("" != inputText.value) {
-            addNewTask(inputText.value);
-        }
-    }
-});
 
 function reloadLists() {    
     document.querySelector(".task-list-collection").innerHTML ="";
@@ -492,6 +506,7 @@ function addEventListenerForDeleteStep(id) {
         activeStepId = event.target.id;
         var activeTask = retrieveTask(activeTaskId);
         var activeStep = activeTask.steps.find(step => step.id == activeStepId);
+        console.log(activeStep.name);
         var criteriaNameSpan =  document.querySelector(".criteria-name");
         criteriaNameSpan.innerHTML = "" + activeStep.name + "";
         document.querySelector(".delete-button").innerHTML = "Delete step";
@@ -594,7 +609,4 @@ function createLabelAndCheckbox(checkbox, label, div, id, name) {
     label.setAttribute("for", id);
     statusDiv.appendChild(label);
     div.appendChild(statusDiv);
-}
-retreiveElementById() {
-    
 }
