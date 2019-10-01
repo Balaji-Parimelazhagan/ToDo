@@ -1,0 +1,135 @@
+.side-panel {
+    height: 100%;
+    float: left;
+    border-right: 1px solid rgba(222,222,222,0.7);
+    position: relative;
+    transition: 0.3s;
+    background: #F4F4F4;
+    overflow-y: auto;
+  }
+  .side-panel-closed-width {
+    width:  3.7%;
+  }
+  .side-panel-opened-width {
+    width:  22%;
+  }
+  .menu-button {
+    width: 2.087vh;
+    margin: 3.5vh 0 2.4vh 0.884vw;
+    padding: 1.1vh 0.768vw 1.6vh 0.58vw;
+    background: none;
+    border-radius: 3px;
+    border: 1px solid #F4F4F4; 
+    outline: none;
+    cursor: pointer;
+  }
+  .bars {
+    margin: 0.5vh 0 0 0;
+    width: 1.3vw;
+    height: 0.16vh;
+    background: #2878D7;
+  }
+  
+  .menu-button:hover {
+    background: #FAFAFA;
+    border: 1px solid rgba(233,233,233,0.8);
+  }
+  
+   .ListOfTask {
+    height: 4.8vh;
+    line-height: 4.8vh;
+  } 
+  .navigation-button {
+    width: 3.5vw;
+    height: 6vh;
+    line-height: 6vh;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 30px;
+    color:#2878D7;
+    float: left;
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  .navigation-detail {
+    width: 18.5vw;
+    height: 6vh;
+    display: block;
+    font-size: 30px;
+    margin:0 0 0 -18.5vw;
+    color:#2878D7;
+    font-size: 15px;
+    background: none;
+    outline:none;
+    border: none;
+    opacity: 0.6;
+  }
+  .icon-div{
+    width: 3.5vw;
+    height: 6vh;
+    float: left;
+    cursor: pointer;
+  }
+  .icon {
+    margin: 1.6vh 0 0 1.152vw;
+    width: 1.4vw;
+    height: 2.9vh;
+    opacity: 0.5;
+  }
+  .sun-icon {
+    background-image: url("/assets/sun.png");
+    background-size: cover;
+  }
+  .star-icon {
+    background-image: url("/assets/star.png");
+    background-size: cover;
+  }
+  .calender-icon {
+    background-image: url("/assets/calender.png");
+    background-size: cover;
+  }
+  .user-icon {
+    background-image: url("/assets/user.png");
+    background-size: cover;
+  }
+  .home-icon {
+    background-image: url("/assets/home.png");
+    background-size: cover;
+  }
+  
+  .menu-name, .list-name {
+    width: 18.5vw;
+    height: 6vh;
+    font-size: 14px;
+    text-align: left;
+    line-height: 6vh;
+    vertical-align: middle;
+    background: none;
+    outline:none;
+    border: none;
+    opacity: 0.9;
+    color: rgb(52, 55, 61);
+    cursor: pointer;
+  }
+  .margin-when-side-panel-closed {
+    margin:0 0 0 -18.5vw;
+  }
+  .margin-when-side-panel-opened {
+    margin:0 0 0 3.5vw;
+  }
+  .side-panel-menu:hover, .list-name:hover {
+     background: #FAFAFA;
+  }
+  .list-of-task img {
+    margin: 1.6vh 0 0 1.152vw;
+    width: 3.2vh;
+    height: 1.464vw;
+    float: left;
+  }
+  .newListInput::placeholder {
+    color: #2878D7;
+    opacity: 1;
+  }
+  .newListInput:focus {
+    background: #FAFAFA;
+  }
