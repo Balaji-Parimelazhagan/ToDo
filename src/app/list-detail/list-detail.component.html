@@ -9,6 +9,7 @@
     </div>
     <div class = "add-new-task">
         <label class = "add-task-icon add-task-plus-icon" for = "new-task-input-box"></label>
-        <input type = "text" placeholder = "Add task" class = "task-name-input" id = "new-task-input-box"/>
+        <input (keydown.enter)="onEnterKey($event)" type = "text" placeholder = "Add task" class = "task-name-input"
+            id = "new-task-input-box" />
     </div>
 </div>

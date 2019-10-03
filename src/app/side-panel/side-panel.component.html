@@ -1,5 +1,5 @@
 <div class = "side-panel side-panel-closed-width">
-    <div class = "menu-button" tabindex="0" role="button" aria-pressed="true">
+    <div (click)="navigateActionOfMenuButton()" class = "menu-button" tabindex="0" role="button" aria-pressed="true">
         <div class = "bars"></div>
         <div class = "bars"></div>
         <div class = "bars"></div>
@@ -25,11 +25,14 @@
         <div class = "icon-div"><div class="icon home-icon"></div></div>
         <div class = "menu-name margin-when-side-panel-closed" >Tasks</div>
         </div>
-        <div class = "task-list-collection">
+        <div class = "task-list-collection" >
+            <div class = "task" *ngFor="let list of CollectionOfList">
+                <div class = "task-name text-decoration-none" >{{list.name}}</div>
+            </div>
         </div>
     </div>
     <div class = "side-panel-menu">
         <label class = "navigation-button new-list-button" for = "newListInput" >+</label>
-        <input type = "text" placeholder = "New list" class = "navigation-detail newListInput" id = "newListInput" />
+        <input (keydown.enter)="createList(newList)" #newList type = "text" placeholder = "New list" class = "navigation-detail newListInput" id = "newListInput" />
     </div>
 </div>
