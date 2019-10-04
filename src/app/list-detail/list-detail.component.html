@@ -1,15 +1,22 @@
 <div class = "list-detail list-when-task-side-closed">
     <div class = "list-header">
-        <span class = "list-of-task-name">Tasks</span>
+        <span class = "list-of-task-name">{{activeList.name}}</span>
         <div class="option-icon"></div>
         <div class="option-icon"></div>
         <div class="option-icon"></div>
     </div>
     <div class = "task-collection">
+        <div class = "task" *ngFor="let task of activeList.tasks">
+            <div class = "task-status task-status-margin">
+                <label for = "task-check-box"></label>
+                <input type = "checkbox" id = "task-check-box"/>
+            </div>
+            <div class = "task-name text-decoration-none" (click)="displayList(task)" >{{task.name}}</div>
+        </div>
     </div>
     <div class = "add-new-task">
         <label class = "add-task-icon add-task-plus-icon" for = "new-task-input-box"></label>
-        <input (keydown.enter)="onEnterKey($event)" type = "text" placeholder = "Add task" class = "task-name-input"
-            id = "new-task-input-box" />
+        <input (keydown.enter)="createTask(Input)" #Input type = "text" placeholder = "Add task"
+            class = "task-name-input" id = "new-task-input-box" />
     </div>
 </div>

@@ -39,7 +39,7 @@
     height: 4.8vh;
     line-height: 4.8vh;
   } 
-  .navigation-button {
+  .list-plus-icon {
     width: 3.5vw;
     height: 6vh;
     line-height: 6vh;
@@ -51,7 +51,7 @@
     opacity: 0.6;
     cursor: pointer;
   }
-  .navigation-detail {
+  .list-text-box {
     width: 18.5vw;
     height: 6vh;
     display: block;
@@ -63,6 +63,13 @@
     outline:none;
     border: none;
     opacity: 0.6;
+  }
+  .list-text-box::placeholder {
+    color: #2878D7;
+    opacity: 1;
+  }
+  .list-text-box:focus {
+    background: #FAFAFA;
   }
   .icon-div{
     width: 3.5vw;
@@ -96,7 +103,11 @@
     background-image: url("/assets/home.png");
     background-size: cover;
   }
-  
+  .list-icon {
+    float: left;
+    background-image: url("/assets/list.png");
+    background-size: cover;
+  }
   .menu-name, .list-name {
     width: 18.5vw;
     height: 6vh;
@@ -119,17 +130,4 @@
   }
   .side-panel-menu:hover, .list-name:hover {
      background: #FAFAFA;
-  }
-  .list-of-task img {
-    margin: 1.6vh 0 0 1.152vw;
-    width: 3.2vh;
-    height: 1.464vw;
-    float: left;
-  }
-  .newListInput::placeholder {
-    color: #2878D7;
-    opacity: 1;
-  }
-  .newListInput:focus {
-    background: #FAFAFA;
   }

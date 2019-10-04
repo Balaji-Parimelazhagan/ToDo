@@ -7,32 +7,35 @@
     <div class = "scrollable-area">
         <div class = "side-panel-menu">
         <div class = "icon-div"><div class="icon sun-icon"></div></div>
-        <div class = "menu-name margin-when-side-panel-closed" >My Day</div>
+        <div class = "menu-name" [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'" >My Day</div>
         </div>
         <div class = "side-panel-menu">
         <div class = "icon-div"><div class="icon star-icon"></div></div>
-        <div class = "menu-name margin-when-side-panel-closed" >Important</div>
+        <div class = "menu-name" [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'" >Important</div>
         </div>
         <div class = "side-panel-menu">
         <div class = "icon-div"><div class="icon calender-icon"></div></div>
-        <div class = "menu-name margin-when-side-panel-closed" >Planned</div>
+        <div class = "menu-name" [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'" >Planned</div>
         </div>
         <div class = "side-panel-menu">
         <div class = "icon-div"><div class="icon user-icon"></div></div>
-        <div class = "menu-name margin-when-side-panel-closed" >Assigned to Me</div>
+        <div class = "menu-name" [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'" >Assigned to Me</div>
         </div>
         <div class = "side-panel-menu">
         <div class = "icon-div"><div class="icon home-icon"></div></div>
-        <div class = "menu-name margin-when-side-panel-closed" >Tasks</div>
+        <div class = "menu-name" [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'" >Tasks</div>
         </div>
         <div class = "task-list-collection" >
-            <div class = "task" *ngFor="let list of CollectionOfList">
-                <div class = "task-name text-decoration-none" >{{list.name}}</div>
+            <div class = "list-of-task" *ngFor="let list of collectionOfList.lists">
+                <div class = "icon list-icon"></div>
+                <div class = "list-name" [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'"
+                    (click)="displayList(list)" >{{list.name}}</div>
             </div>
         </div>
     </div>
     <div class = "side-panel-menu">
-        <label class = "navigation-button new-list-button" for = "newListInput" >+</label>
-        <input (keydown.enter)="createList(newList)" #newList type = "text" placeholder = "New list" class = "navigation-detail newListInput" id = "newListInput" />
+        <label class = "list-plus-icon new-list-button" for = "newListInput" >+</label>
+        <input (keydown.enter)="createList(newList)" #newList type = "text" placeholder = "New list" class = "list-text-box"
+        [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'" id = "newListInput" />
     </div>
 </div>
