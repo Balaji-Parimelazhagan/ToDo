@@ -2,21 +2,53 @@
     <div class = "task-header">
         <div class = "task-title">
             <div class = "task-status task-status-detail-margin">
-                <input type = "checkbox" id = "task-status-detail-checkbox" />
+                <input type = "checkbox" id = "task-status-detail-checkbox"
+                    [checked] = "dataService.activeTask.isFinished ? 'checked' : null"
+                    (click)="toggleIsFinished(dataService.activeTask)" />
                 <label class = "tast-status-checkbox" for = "task-status-detail-checkbox"></label>
             </div>
-            <div class = "task-name-detail text-decoration-none"></div>
+            <input type = "text" [ngClass]="dataService.activeTask.isFinished ? 'task-name-detail text-decoration-line' : 'task-name-detail text-decoration-none'"
+              value = "{{dataService.activeTask.name}}" (keydown.enter)="updateTaskName(Inputbox)" #Inputbox />
             <div class = "is-favourite"></div>
         </div>
         <div class="steps">
+            <div class = "step" *ngFor="let step of dataService.activeTask.steps">
+                <div class = "step">
+                    <div class = "step-status">
+                        <input type = "checkbox" id = {{step.id}}
+                        [checked] = "step.isFinished ? 'checked' : null"
+                        (click)="toggleStepIsFinished(step)" />
+                        <label for = {{step.id}}></label>
+                    </div>
+                    <div [ngClass]="step.isFinished ? 'step-name text-decoration-line' : 'step-name text-decoration-none'"
+                     (click)="displayTaskDetail(step)" >{{step.name}}</div>
+                    <div class = "step-delete"  (click)="toggleStepPopUpDisplay(step)"></div>
+                </div>
+            </div>
         </div>
         <div class = "add-new-step">
             <label class = "add-step-icon" for = "new-step-input-box"></label>
-            <input type = "text" placeholder = "Add step" class = "step-name-input" id = "new-step-input-box"/>
+            <input type = "text" (keydown.enter)="createStep(Input)" #Input placeholder = "Add step" class = "step-name-input" id = "new-step-input-box"/>
         </div>
     </div>
     <div class = "task-footer">
-        <div class = "task-detail-delete"></div>
-        <div class = "task-detail-panel-close">Close</div>
+        <div class = "task-detail-delete" (click)="toggleTaskPopUpDisplay()"></div>
+        <div class = "task-detail-panel-close" (click)="hideTaskDetail()">Close</div>
+    </div>
+    <div class = "modal model-display-none" [ngClass]="isTaskPopHidden ? 'modal model-display-none' : 'modal model-display-block'">
+      <div class = "modal-content">
+        <span class = "warning-message">"<span class = "criteria-name">{{dataService.activeTask.name}}</span>" will be permanently deleted</span><br>
+        <span class = "info">You won't be able to undo this action</span><br>
+        <button class = "delete-button" (click)="deleteTask(dataService.activeTask)">Delete Task</button>
+        <button class = "cancel-button" (click)="toggleTaskPopUpDisplay()">Cancel</button>
+      </div>
+    </div>
+    <div class = "modal model-display-none" [ngClass]="isStepPopHidden ? 'modal model-display-none' : 'modal model-display-block'">
+      <div class = "modal-content">
+        <span class = "warning-message">"<span class = "criteria-name">{{activeStep.name}}</span>" will be permanently deleted</span><br>
+        <span class = "info">You won't be able to undo this action</span><br>
+        <button class = "delete-button" (click)="deleteStep()">Delete Step</button>
+        <button class = "cancel-button" (click)="toggleTaskPopUpDisplay()">Cancel</button>
+      </div>
     </div>
 </div>

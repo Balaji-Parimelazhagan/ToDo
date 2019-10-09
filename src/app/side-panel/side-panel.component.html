@@ -26,15 +26,16 @@
         <div class = "menu-name" [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'" >Tasks</div>
         </div>
         <div class = "task-list-collection" >
-            <div class = "list-of-task" *ngFor="let list of collectionOfList.lists">
-                <div class = "icon list-icon"></div>
+            <div class = "list-of-task" *ngFor="let list of this.dataService.collectionOfList.lists">
+                <div class = "icon list-icon" (click)="displayList(list)"></div>
                 <div class = "list-name" [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'"
-                    (click)="displayList(list)" >{{list.name}}</div>
+                    (click)="displayList(list)" >{{list.name}} {{list.nameSuffix}}<span *ngIf="list.tasks.length">{{list.tasks.length}}</span></div>
+                
             </div>
         </div>
     </div>
     <div class = "side-panel-menu">
-        <label class = "list-plus-icon new-list-button" for = "newListInput" >+</label>
+        <label (click)="navigateActionOfMenuButton()" class = "list-plus-icon new-list-button" for = "newListInput" >+</label>
         <input (keydown.enter)="createList(newList)" #newList type = "text" placeholder = "New list" class = "list-text-box"
         [ngClass]="sidePanelStatus ? 'margin-when-side-panel-opened' : 'margin-when-side-panel-closed'" id = "newListInput" />
     </div>

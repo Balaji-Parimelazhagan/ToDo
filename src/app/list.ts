@@ -3,6 +3,5 @@ export class List {
   id: number;
   name: string;
   nameSuffix: string;
-  status: boolean;
   tasks: Task[];
 }

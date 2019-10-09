@@ -4,6 +4,8 @@ import { List } from '../list';
 import { Task } from '../task';
 import { TaskService } from '../task.service';
 import { DataService } from '../data.service';
+import { Util } from '../util';
+import { ListService } from '../list.service';
 @Component({
   selector: 'app-list-detail',
   templateUrl: './list-detail.component.html',
@@ -11,34 +13,67 @@ import { DataService } from '../data.service';
 })
 export class ListDetailComponent {
 
-  constructor(private data: DataService, private taskService: TaskService) {}
+  constructor(private dataService: DataService, private taskService: TaskService, private listService: ListService) {}
 
   activeList: List;
   task: Task;
-  activeListName: string;
-  activeListTasks: Task[];
 
   OnInit() {
-    this.data.activeList.subscribe(list => this.activeList = list);
-    this.activeListName =  this.activeList.name;
-    this.activeListTasks = this.activeList.tasks;
+    this.activeList = this.dataService.activeList;
   }
-
 
   /**
    * Creates a new task object and the styles for the list to be displayed.
    *
    * @param textBoxInput, It is the name of the list entered by the user.
    */
-createTask(textBoxInput) {
+  createTask(textBoxInput) {
+    this.activeList = this.dataService.activeList;
     let taskName: string;
     taskName = textBoxInput.value;
     this.task = this.taskService.createTask(taskName);
-    console.log(this.activeList);
     this.activeList.tasks.push(this.task);
     textBoxInput.value = '';
-    this.data.updateActiveList(this.activeList);
+    this.dataService.activeList = this.activeList;
+    this.dataService.activeTask = this.task;
   }
 
+  /**
+   * Displays the task details in the task detail area.
+   *
+   * @param task It is the task which must be displayed.
+   */
+  displayTaskDetail(task: Task) {
+    this.dataService.activeTask = task;
+    Util.showTaskDetailPanel();
+  }
 
+  /**
+   * Updates the name of the list.
+   *
+   * @param inputTextBox it is the text box element where the
+   * updated name has been entered.
+   */
+  updateListName(inputTextBox) {
+    const newListName: string = inputTextBox.value;
+    console.log(newListName);
+    this.listService.updateListName(newListName);
+    inputTextBox.blur();
+  }
+
+  /**
+   * Toggles the isFinished variable true if task is finished, false if the
+   * task havenot completed.
+   *
+   * @param task It is the task for which the if finished must be
+   * toggeled.
+   */
+  toggleIsFinished(task) {
+    task.isFinished = !task.isFinished;
+  }
+
+  getFinishedStepCount() {
+    const finishedSteps = this.dataService.activeTask.steps.filter(step => step.isFinished === true);
+    return finishedSteps.length;
+  }
 }

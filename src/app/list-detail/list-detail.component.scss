@@ -23,7 +23,9 @@
     width: 100%;
   }
   .list-of-task-name {
-    height: 7.7vh;
+    height: 5.7vh;
+    border:none;
+    outline: none;
     line-height: 7.7vh;
     vertical-align: middle;
     font-size: 20px;
@@ -31,11 +33,15 @@
     font-weight: 600;
     margin: 0 1.1vw 0 1.54vw;
   }
+  .list-of-task-name:focus {
+    color: rgba(66,66,66,0.6);
+    border: 1px solid rgba(66,66,66,1);
+  }
   .list-header .option-icon {
-    width: 0.64vh;
-    height: 0.3vw;
-    margin: 0 0 0 -0.22vw;
-    background-image: url("/assets/dot.png");
+    width: 0.6vh;
+    height: 0.5vw;
+    margin: 0 0 0 0.22vw;
+    background-image: url(/assets/dot.png);
     background-size: cover;
     display: inline-block;
   }
@@ -101,6 +107,59 @@
     cursor: pointer;
     padding: 2.2vh 0.6vw 0 0;
     margin : 0.3vh 0.4vw 0 0;
+  }
+  .step-count {
+    opacity: 0.6;
+    font-size: 15px;
+    width: 50px;
+  }
+  .task-status {
+    width: 1.9vw;
+    padding: 0.15vh 0 0 0.15vw;
+    height: 3.7vh;
+    margin: 2.7vh 0 0 0;
+    position: relative;
+  }
+  .task-status-margin {
+    margin: 2.7vh 0 0 0.5vw;
+  }
+  .task-status label {
+    background-color: #fff;
+    border: 1px solid #2878D7;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 2.4vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1.2vw;
+  }
+  
+  .task-status label:after {
+    border: 2px solid #FFFFFF;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: 0.4vh;
+    left: 0.3vw;
+    opacity: 0;
+    position: absolute;
+    top: 0.6vh;
+    transform: rotate(-45deg);
+    width: 0.5vw;
+  }
+  
+  .task-status input[type="checkbox"] {
+    visibility: hidden;
+  }
+  
+  .task-status input[type="checkbox"]:checked + label {
+    border-color: #2878D7;
+    background: #2878D7;
+  }
+  
+  .task-status input[type="checkbox"]:checked + label:after {
+    opacity: 1;
   }
   .task-name {
     height: 7vh;

@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidePanelComponent } from './side-panel/side-panel.component';
 import { ListDetailComponent } from './list-detail/list-detail.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { DataService } from './data.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

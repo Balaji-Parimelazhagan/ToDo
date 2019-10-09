@@ -1,20 +1,12 @@
 import { Injectable } from '@angular/core';
 import { List } from './list';
-import { BehaviorSubject } from 'rxjs';
+import { Task } from './task';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DataService {
-  list: List;
-  private sourceList = new BehaviorSubject(this.list);
-  activeList = this.sourceList.asObservable();
+  collectionOfList = {lists: [] };
+  activeList: List = {id: 0, name: 'Tasks', nameSuffix: '', tasks: []};
+  activeTask: Task;
 
   constructor() { }
-
-  updateActiveList(changedList: List) {
-    console.log(changedList);
-    this.sourceList.next(changedList);
-    console.log(this.sourceList);
-  }
 }

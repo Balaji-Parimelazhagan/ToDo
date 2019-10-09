@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { List } from './list';
 import { Util } from './util';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListService {
-  constructor() { }
+  constructor(private dataService: DataService) { }
   list: List;
 
   /**
@@ -15,9 +16,18 @@ export class ListService {
    * @param name, It is the name of the list entered by the user.
    */
   createList(listName: string) {
-    /*let nameSuffix: string;
-    nameSuffix = validateName(listName, "list");*/
-    this.list = {id: Util.generateId(), name: listName, nameSuffix: '', status: true, tasks: []};
+    let listNameSuffix: string;
+    listNameSuffix = Util.validateName(listName, this.dataService.collectionOfList);
+    this.list = {id: Util.generateId(), name: listName, nameSuffix: listNameSuffix, tasks: []};
     return this.list;
+  }
+
+  /**
+   * Updates the name of the list.
+   *
+   * @param newListName It is the new list name which has to be updated.
+   */
+  updateListName(newListName: string) {
+    this.dataService.activeList.name = newListName;
   }
 }

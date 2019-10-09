@@ -1,17 +1,22 @@
-<div class = "list-detail list-when-task-side-closed">
+<div class = "list-detail list-when-side-opened">
     <div class = "list-header">
-        <span class = "list-of-task-name">{{activeList.name}}</span>
+        <input type = "text" class = "list-of-task-name"
+          (keydown.enter)="updateListName(Inputbox)" #Inputbox
+          value = "{{dataService.activeList.name}}{{dataService.activeList.nameSuffix}}" />
         <div class="option-icon"></div>
         <div class="option-icon"></div>
         <div class="option-icon"></div>
     </div>
     <div class = "task-collection">
-        <div class = "task" *ngFor="let task of activeList.tasks">
+        <div class = "task" *ngFor="let task of dataService.activeList.tasks">
             <div class = "task-status task-status-margin">
-                <label for = "task-check-box"></label>
-                <input type = "checkbox" id = "task-check-box"/>
+                <input type = "checkbox" id = {{task.id}} (click)="toggleIsFinished(task)"
+                  [checked] = "task.isFinished ? 'checked' : null"/>
+                <label for = {{task.id}}></label>
             </div>
-            <div class = "task-name text-decoration-none" (click)="displayList(task)" >{{task.name}}</div>
+            <div [ngClass]="task.isFinished ? 'task-name text-decoration-line' : 'task-name text-decoration-none'"
+             (click)="displayTaskDetail(task)" >{{task.name}}</div>
+            <div class = "step-count">{{getFinishedStepCount()}} of {{task.steps.length}}</div>
         </div>
     </div>
     <div class = "add-new-task">
