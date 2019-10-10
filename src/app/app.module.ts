@@ -7,7 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { SidePanelComponent } from './side-panel/side-panel.component';
 import { ListDetailComponent } from './list-detail/list-detail.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
-import { DataService } from './data.service';
+import { DataService } from './service/data.service';
+import { TaskHoverDirective } from './task-hover.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DataService } from './data.service';
     HeaderComponent,
     SidePanelComponent,
     ListDetailComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    TaskHoverDirective
   ],
   imports: [
     BrowserModule,

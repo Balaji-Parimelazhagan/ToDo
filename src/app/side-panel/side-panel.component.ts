@@ -1,10 +1,9 @@
 import { Component} from '@angular/core';
 
-import { List } from '../list';
-import { ListService } from '../list.service';
-import { Util } from '../util';
-import { DataService } from '../data.service';
-import { ListDetailComponent } from '../list-detail/list-detail.component';
+import { List } from '../model/list';
+import { ListService } from '../service/list.service';
+import { CommonUtil } from '../util/common-util';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-side-panel',
@@ -44,19 +43,19 @@ export class SidePanelComponent  {
    */
   displayList(selectedList: List) {
     this.dataService.activeList = selectedList;
-    Util.hideTaskDetailPanel();
+    CommonUtil.hideTaskDetailPanel();
   }
   /**
    * Opens the side panel when the menu button us pressed. Closes the side panel
    * when the menu button is pressed again.
    */
   navigateActionOfMenuButton() {
-    const menuButton = Util.retrieveElementbyIdOrClass('.menu-button');
+    const menuButton = CommonUtil.retrieveElementbyIdOrClass('.menu-button');
     this.sidePanelStatus = !this.sidePanelStatus;
     if (menuButton.getAttribute('aria-pressed') === 'true') {
-        Util.navigateSidePanel('open');
+      CommonUtil.navigateSidePanel('open');
     } else {
-        Util.navigateSidePanel('close');
+      CommonUtil.navigateSidePanel('close');
     }
   }
 

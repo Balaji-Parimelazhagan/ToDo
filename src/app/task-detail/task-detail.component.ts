@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../task';
-import { DataService } from '../data.service';
-import { Step } from '../step';
-import { TaskDetailService } from '../task-detail.service';
-import { TaskService } from '../task.service';
-import { Util } from '../util';
+import { Task } from '../model/task';
+import { DataService } from '../service/data.service';
+import { Step } from '../model/step';
+import { TaskDetailService } from '../service/task-detail.service';
+import { TaskService } from '../service/task.service';
+import { CommonUtil } from '../util/common-util';
 
 @Component({
   selector: 'app-task-detail',
@@ -52,7 +52,7 @@ export class TaskDetailComponent implements OnInit {
    * Hides the task detail panel.
    */
   hideTaskDetail() {
-    Util.hideTaskDetailPanel();
+    CommonUtil.hideTaskDetailPanel();
   }
 
   /**
@@ -94,7 +94,7 @@ export class TaskDetailComponent implements OnInit {
   deleteTask(task: Task) {
     this.taskService.deleteTask(task);
     this.isTaskPopHidden = !this.isTaskPopHidden;
-    Util.hideTaskDetailPanel();
+    CommonUtil.hideTaskDetailPanel();
   }
 
   /**

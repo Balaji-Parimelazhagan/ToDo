@@ -33,7 +33,7 @@
     </div>
     <div class = "task-footer">
         <div class = "task-detail-delete" (click)="toggleTaskPopUpDisplay()"></div>
-        <div class = "task-detail-panel-close" (click)="hideTaskDetail()">Close</div>
+        <div class = "task-detail-panel-close" (click)="hideTaskDetail()"></div>
     </div>
     <div class = "modal model-display-none" [ngClass]="isTaskPopHidden ? 'modal model-display-none' : 'modal model-display-block'">
       <div class = "modal-content">
@@ -48,7 +48,7 @@
         <span class = "warning-message">"<span class = "criteria-name">{{activeStep.name}}</span>" will be permanently deleted</span><br>
         <span class = "info">You won't be able to undo this action</span><br>
         <button class = "delete-button" (click)="deleteStep()">Delete Step</button>
-        <button class = "cancel-button" (click)="toggleTaskPopUpDisplay()">Cancel</button>
+        <button class = "cancel-button" (click)="toggleStepPopUpDisplay()">Cancel</button>
       </div>
     </div>
 </div>

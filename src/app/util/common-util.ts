@@ -1,6 +1,6 @@
-import { DataService } from './data.service';
+import { DataService } from '../service/data.service';
 
-export class Util {
+export class CommonUtil {
 
     private static isTaskDetailPanelOpen: boolean;
     private static isSidePanelOpen: boolean;

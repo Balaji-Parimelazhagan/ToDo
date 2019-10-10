@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { List } from '../list';
-import { Task } from '../task';
-import { TaskService } from '../task.service';
-import { DataService } from '../data.service';
-import { Util } from '../util';
-import { ListService } from '../list.service';
+import { List } from '../model/list';
+import { Task } from '../model/task';
+import { TaskService } from '../service/task.service';
+import { DataService } from '../service/data.service';
+import { CommonUtil } from '../util/common-util';
+import { ListService } from '../service/list.service';
 @Component({
   selector: 'app-list-detail',
   templateUrl: './list-detail.component.html',
@@ -45,7 +45,7 @@ export class ListDetailComponent {
    */
   displayTaskDetail(task: Task) {
     this.dataService.activeTask = task;
-    Util.showTaskDetailPanel();
+    CommonUtil.showTaskDetailPanel();
   }
 
   /**

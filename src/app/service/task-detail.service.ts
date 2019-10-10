@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Step } from './step';
-import { Util } from './util';
-import { Task } from './task';
+import { Step } from '../model/step';
+import { CommonUtil } from '../util/common-util';
+import { Task } from '../model/task';
 import { DataService } from './data.service';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class TaskDetailService {
   createStep(stepName: string) {
     /*let nameSuffix: string;
     nameSuffix = validateName(listName, "list");*/
-    this.step = {id: Util.generateId(), name: stepName, nameSuffix: '', isFinished: false};
+    this.step = {id: CommonUtil.generateId(), name: stepName, nameSuffix: '', isFinished: false};
     return this.step;
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { List } from './list';
-import { Task } from './task';
+import { List } from '../model/list';
+import { Task } from '../model/task';
 
 @Injectable()
 export class DataService {

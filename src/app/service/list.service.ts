@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { List } from './list';
-import { Util } from './util';
+import { List } from '../model/list';
+import { CommonUtil } from '../util/common-util';
 import { DataService } from './data.service';
 
 @Injectable({
@@ -17,8 +17,8 @@ export class ListService {
    */
   createList(listName: string) {
     let listNameSuffix: string;
-    listNameSuffix = Util.validateName(listName, this.dataService.collectionOfList);
-    this.list = {id: Util.generateId(), name: listName, nameSuffix: listNameSuffix, tasks: []};
+    listNameSuffix = CommonUtil.validateName(listName, this.dataService.collectionOfList);
+    this.list = {id: CommonUtil.generateId(), name: listName, nameSuffix: listNameSuffix, tasks: []};
     return this.list;
   }
 

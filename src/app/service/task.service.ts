@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Task } from './task';
-import { Util } from './util';
+import { Task } from '../model/task';
+import { CommonUtil } from '../util/common-util';
 import { DataService } from './data.service';
-import { List } from './list';
+import { List } from '../model/list';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class TaskService {
    * @param name, It is the name of the task entered by the user.
    */
   createTask(taskName: string) {
-    this.task = {id: Util.generateId(), name: taskName, nameSuffix: '', isFinished: false, steps: []};
+    this.task = {id: CommonUtil.generateId(), name: taskName, nameSuffix: '', isFinished: false, steps: []};
     return this.task;
   }
 

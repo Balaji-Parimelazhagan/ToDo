@@ -8,7 +8,7 @@
         <div class="option-icon"></div>
     </div>
     <div class = "task-collection">
-        <div class = "task" *ngFor="let task of dataService.activeList.tasks">
+        <div appTaskHover class = "task" *ngFor="let task of dataService.activeList.tasks">
             <div class = "task-status task-status-margin">
                 <input type = "checkbox" id = {{task.id}} (click)="toggleIsFinished(task)"
                   [checked] = "task.isFinished ? 'checked' : null"/>
