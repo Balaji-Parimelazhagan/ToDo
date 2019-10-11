@@ -1,9 +1,9 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appTaskHover]'
+  selector: '[appElementHover]'
 })
-export class TaskHoverDirective {
+export class ElementHoverDirective {
 
   constructor(private element: ElementRef) { }
 

@@ -6,6 +6,7 @@ import { TaskService } from '../service/task.service';
 import { DataService } from '../service/data.service';
 import { CommonUtil } from '../util/common-util';
 import { ListService } from '../service/list.service';
+
 @Component({
   selector: 'app-list-detail',
   templateUrl: './list-detail.component.html',
@@ -13,7 +14,9 @@ import { ListService } from '../service/list.service';
 })
 export class ListDetailComponent {
 
-  constructor(private dataService: DataService, private taskService: TaskService, private listService: ListService) {}
+  constructor(private dataService: DataService,
+              private taskService: TaskService,
+              private listService: ListService) {}
 
   activeList: List;
   task: Task;
@@ -29,8 +32,7 @@ export class ListDetailComponent {
    */
   createTask(textBoxInput) {
     this.activeList = this.dataService.activeList;
-    let taskName: string;
-    taskName = textBoxInput.value;
+    const taskName: string = textBoxInput.value;
     this.task = this.taskService.createTask(taskName);
     this.activeList.tasks.push(this.task);
     textBoxInput.value = '';
@@ -56,7 +58,6 @@ export class ListDetailComponent {
    */
   updateListName(inputTextBox) {
     const newListName: string = inputTextBox.value;
-    console.log(newListName);
     this.listService.updateListName(newListName);
     inputTextBox.blur();
   }
@@ -72,8 +73,14 @@ export class ListDetailComponent {
     task.isFinished = !task.isFinished;
   }
 
-  getFinishedStepCount() {
-    const finishedSteps = this.dataService.activeTask.steps.filter(step => step.isFinished === true);
+  /**
+   * Calaculates the finished steps for the given task.
+   *
+   * @param task It is the task for which the finished steps has to be
+   * calculated
+   */
+  getFinishedStepCount(task: Task) {
+    const finishedSteps = task.steps.filter(step => step.isFinished === true);
     return finishedSteps.length;
   }
 }

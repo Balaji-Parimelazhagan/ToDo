@@ -19,14 +19,16 @@ export class TaskDetailService {
    * @param name, It is the name of the list entered by the user.
    */
   createStep(stepName: string) {
-    /*let nameSuffix: string;
-    nameSuffix = validateName(listName, "list");*/
-    this.step = {id: CommonUtil.generateId(), name: stepName, nameSuffix: '', isFinished: false};
+    this.step = {id: CommonUtil.generateId(),
+                 name: stepName,
+                 nameSuffix: '',
+                 isFinished: false};
     return this.step;
   }
 
   /**
    * Hard Deletes the given object by removing the element from the array.
+   * Gets the index of the step object from the steps array from active task.
    *
    * @param step It is the step object which should be deteleted.
    */

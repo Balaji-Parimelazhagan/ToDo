@@ -7,7 +7,9 @@ import { DataService } from './data.service';
   providedIn: 'root'
 })
 export class ListService {
+
   constructor(private dataService: DataService) { }
+
   list: List;
 
   /**
@@ -17,8 +19,12 @@ export class ListService {
    */
   createList(listName: string) {
     let listNameSuffix: string;
-    listNameSuffix = CommonUtil.validateName(listName, this.dataService.collectionOfList);
-    this.list = {id: CommonUtil.generateId(), name: listName, nameSuffix: listNameSuffix, tasks: []};
+    listNameSuffix = CommonUtil.validateName(listName,
+                        this.dataService.collectionOfList);
+    this.list = {id: CommonUtil.generateId(),
+                 name: listName,
+                 nameSuffix: listNameSuffix,
+                 tasks: []};
     return this.list;
   }
 

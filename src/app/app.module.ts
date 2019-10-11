@@ -8,7 +8,7 @@ import { SidePanelComponent } from './side-panel/side-panel.component';
 import { ListDetailComponent } from './list-detail/list-detail.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { DataService } from './service/data.service';
-import { TaskHoverDirective } from './task-hover.directive';
+import { ElementHoverDirective } from './element-hover.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { TaskHoverDirective } from './task-hover.directive';
     SidePanelComponent,
     ListDetailComponent,
     TaskDetailComponent,
-    TaskHoverDirective
+    ElementHoverDirective
   ],
   imports: [
     BrowserModule,

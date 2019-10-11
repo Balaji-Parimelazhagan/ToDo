@@ -8,7 +8,7 @@
         <div class="option-icon"></div>
     </div>
     <div class = "task-collection">
-        <div appTaskHover class = "task" *ngFor="let task of dataService.activeList.tasks">
+        <div appElementHover class = "task" *ngFor="let task of dataService.activeList.tasks">
             <div class = "task-status task-status-margin">
                 <input type = "checkbox" id = {{task.id}} (click)="toggleIsFinished(task)"
                   [checked] = "task.isFinished ? 'checked' : null"/>
@@ -16,7 +16,7 @@
             </div>
             <div [ngClass]="task.isFinished ? 'task-name text-decoration-line' : 'task-name text-decoration-none'"
              (click)="displayTaskDetail(task)" >{{task.name}}</div>
-            <div class = "step-count">{{getFinishedStepCount()}} of {{task.steps.length}}</div>
+            <div class = "step-count">{{getFinishedStepCount(task)}} of {{task.steps.length}}</div>
         </div>
     </div>
     <div class = "add-new-task">
